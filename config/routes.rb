@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  get 'welcome/index'
+
+  resources :posts  #  GET asks for data, a POST creates data, a PATCH or PUT updates data, and a DELETE deletes data
 
   get 'welcome/about'
-
-  get 'welcome/faq'
-
+  #get 'welcome/faq'
   root to: 'welcome#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
