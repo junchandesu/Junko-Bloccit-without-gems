@@ -15,6 +15,8 @@
 #The Test database is isolated from the Development and Production databases. 
  group :development, :test do
    gem 'rspec-rails', '~> 3.0'
+   # The belong_to and validate_presence_of methods
+   gem 'shoulda' 
  end
  
  # Use SCSS for stylesheets
