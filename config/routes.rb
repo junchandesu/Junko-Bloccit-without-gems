@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create]
   get 'welcome/about'
+  post 'users/confirm' => 'users#confirm'
   #get 'welcome/faq'
   root to: 'welcome#index'
   # The priority is based upon order of creation: first created -> highest priority.
