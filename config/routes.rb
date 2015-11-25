@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :topics do
     resources :posts, except: [:index]  #  GET asks for data, a POST creates data, a PATCH or PUT updates data, and a DELETE deletes data
   end
+
+  resources :users, only: [:new, :create]
   get 'welcome/about'
   #get 'welcome/faq'
   root to: 'welcome#index'
