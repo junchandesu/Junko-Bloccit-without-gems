@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 		@user.password_confirmation = params[:user][:password_confirmation]
 		if @user.save
 			flash[:notice] = "Welcome to Bloccit #{@user.name}!"
+			create_session(@user)
 			redirect_to root_path
 		else
 			flash[:error] = "Error saving your user information. Please try again."

@@ -13,6 +13,15 @@
       <li><%= link_to "Home", root_path %></li>
       <li><%= link_to "Topic", topics_path %></li>
       <li><%= link_to "About", welcome_about_path %></li>
+      <div class="pull-right user-info">
+        <% if current_user %>
+          <%= current_user.name %> | <%= link_to "Sign Out", session_path(current_user), method: :delete %>
+        <% else %>
+          <%= link_to "Sign In", new_session_path %> |
+          <%= link_to "Sign Up", new_user_path %>
+        <% end %>
+      </div>
+
   </ul>
   <!-- ActionDispatch::Flash provides a data structure to pass temporary primitive types (String, Array, Hash) between controller actions.  -->
     <% if flash[:notice] %>
