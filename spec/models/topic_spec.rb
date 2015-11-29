@@ -5,6 +5,8 @@ RSpec.describe Topic, type: :model do
   let(:my_topic) {Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
   # shoulda
   it { should have_many(:posts)}
+  it { should have_many(:labelings)}
+  it { should have_many(:labels).through(:labelings)}
   describe "attributes" do 
   	it "should respond to name" do 
   	  expect(my_topic).to respond_to(:name)
