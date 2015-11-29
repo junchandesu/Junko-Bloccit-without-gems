@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 	has_many :posts
+	has_many :comments
 	# will run when the callback executes
 	before_save { self.email = email.downcase }
 	before_save {self.role ||= :member }

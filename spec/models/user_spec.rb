@@ -6,6 +6,7 @@ RSpec.describe User, type: :model do
 	it {should validate_presence_of(:name)}
 	it {should validate_length_of(:name).is_at_least(1)}
 	it {should have_many(:posts)}
+	it {should have_many(:comments)}
 
 	#should tests for email
 	it {should validate_presence_of(:email)}

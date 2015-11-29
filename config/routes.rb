@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   resources :topics do
     resources :posts, except: [:index]  #  GET asks for data, a POST creates data, a PATCH or PUT updates data, and a DELETE deletes data
   end
-
+  
+  resources :posts, only: [] do  #we don't want to create any /posts/:id routes, just posts/:post_id/comments routes
+    resources :comments, only: [:create, :destroy]
+  end
   resources :users, only: [:new, :create]
   resources :sessions, only: [:new, :create, :destroy]
   get 'welcome/about'

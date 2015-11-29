@@ -45,7 +45,7 @@
    Comment.create!(
      post: posts.sample,
      body: RandomData.random_paragraph,
-     # user: users.sample
+     user: users.sample
    )
  end
 
