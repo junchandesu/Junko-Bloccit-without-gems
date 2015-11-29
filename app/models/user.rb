@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 	has_many :posts
 	# will run when the callback executes
 	before_save { self.email = email.downcase }
+	before_save {self.role ||= :member }
 	before_save :format_name
 	EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -20,6 +21,8 @@ class User < ActiveRecord::Base
 	# has_secure_password requires a password_digest attribute on the model it is applied to.
 	# creates two virtual attributes, password and password_confirmation that we use to set and save the password
 	has_secure_password
+	# Role.roles show below.
+	enum role: [:member, :admin]
 
 	private
 	def format_name

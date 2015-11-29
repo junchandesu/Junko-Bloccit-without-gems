@@ -1,6 +1,7 @@
-<h1><%= link_to "Edit Topoic", edit_topic_path, class: "btn btn-info" %>
+<% if user_is_authorized_for_topic? %>
+ <h1><%= link_to "Edit Topoic", edit_topic_path, class: "btn btn-info" %>
 	<%= link_to "Delete topic", @topic, method: :delete, class: 'btn btn-warning', data:{ confirm: "Are you sure that you want to delete Topic?"} %></h1>
-
+<% end %>
 <div class="row">
 	<div class="col-md-8">
 		<h2><%= @topic.name %></h2>
@@ -12,15 +13,17 @@
 					<%= link_to post.title, topic_post_path(@topic, post) %>
 				</h4>
 				<small>
-					submitted <%= time_ago_in_words(post.created_at) %> ago and created by <%= current_user.name %><br>
+					submitted <%= time_ago_in_words(post.created_at) %> ago and created by <%= post.user.name %><br>
 					<%= post.comments.count %> comments
 				</small>
 			  </div>
 			</div>
 		<% end %>
 	</div>
+   <% if current_user %>
 	<div class="col-md-4">
 		<%= link_to "New Post", new_topic_post_path(@topic), class: 'btn btn-warning' %>
 
 	</div>
+   <% end %>
 </div>

@@ -2,7 +2,9 @@
 <div class="jumbotron">
 	<h1>Bloccit by J</h1>
 	<p> Bloccit is a copy of Reddit for sharing links with your friends</p>
+   <% if !current_user %>	
 	<p><%= link_to "Sign up", new_user_path, class: 'btn btn-info' %>
+	<% end %>
 </div>
 
 <div class="row">
