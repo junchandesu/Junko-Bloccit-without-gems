@@ -13,11 +13,11 @@ class TopicsController < ApplicationController
 	end
 
 	def create
-		@topic = Topic.new
-		@topic.name = params[:topic][:name]
-		@topic.description = params[:topic][:description]
-		@topic.public = params[:topic][:public]
-
+		# @topic = Topic.new
+		# @topic.name = params[:topic][:name]
+		# @topic.description = params[:topic][:description]
+		# @topic.public = params[:topic][:public]
+		@topic = Topic.new(topic_params)
 		if @topic.save
 			redirect_to @topic, notice: "Topic was saved successfully."
 		else
@@ -32,9 +32,10 @@ class TopicsController < ApplicationController
 
 	def update
 		@topic = Topic.find(params[:id])
-		@topic.name = params[:topic][:name]
-		@topic.description = params[:topic][:description]
-		@topic.public = params[:topic][:public]
+		# @topic.name = params[:topic][:name]
+		# @topic.description = params[:topic][:description]
+		# @topic.public = params[:topic][:public]
+		@topic.assign_attributes(topic_params)
 		if @topic.save
 			redirect_to @topic, notice: "Topic was updated."
 		else
@@ -53,6 +54,12 @@ class TopicsController < ApplicationController
 			drender :show		
 		end
 
+	end
+
+	private
+	# mass-assignment, strong parameters
+	def topic_params
+		params.require(:topic).permit(:name, :description, :public)
 	end
 
 end

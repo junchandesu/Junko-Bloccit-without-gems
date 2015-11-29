@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :require_sign_in, except: :show
+  
   # def index
   # 	@posts = Post.all
   # 	# evey 5th post is replaced with "SPAM" except for 0 index
@@ -6,6 +8,7 @@ class PostsController < ApplicationController
   # 		post.title = "SPAM" if index % 5 == 0 && index != 0
   # 	end
   # end
+
 
   def show
   	@post = Post.find(params[:id])
@@ -17,11 +20,12 @@ class PostsController < ApplicationController
   end
  
   def create
-  	@post = Post.new
-  	@post.title = params[:post][:title]
-  	@post.body = params[:post][:body]
+  	# @post = Post.new(post_params)
+  	# @post.title = params[:post][:title]
+  	# @post.body = params[:post][:body]
     @topic = Topic.find(params[:topic_id])
-    @post.topic = @topic
+    @post = @topic.posts.build(post_params)
+    @post.user = current_user
   	if @post.save
   		flash[:notice] = "Post was saved."
   		redirect_to [@topic, @post]
@@ -37,9 +41,10 @@ class PostsController < ApplicationController
 
   def update
   	@post = Post.find(params[:id])
-  	@post.title = params[:post][:title]
-  	@post.body = params[:post][:body]
-  	if @post.save
+  	# @post.title = params[:post][:title]
+  	# @post.body = params[:post][:body]
+  	@post.assign_attributes(post_params)
+    if @post.save
   		flash[:notice] = "Post was updated."
   		redirect_to [@post.topic, @post]
   	else
@@ -57,5 +62,11 @@ class PostsController < ApplicationController
   		flash[:error] = "There was an error deleting the post."
   		redirect_to @post
   	end
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body)
   end
 end

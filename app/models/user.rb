@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+	has_many :posts
 	# will run when the callback executes
 	before_save { self.email = email.downcase }
 	before_save :format_name

@@ -2,6 +2,17 @@
 
  include RandomData  #crated under library 
 
+ # Create Users
+ 5.times do
+ 	user = User.create!(
+ 		name: RandomData.random_name, 
+ 		email: RandomData.random_email,
+ 		password: RandomData.random_sentence
+
+ 		)
+ end
+ users = User.all
+
  # Create Topics
  15.times do
  	Topic.create!(
@@ -16,7 +27,8 @@
    Post.create!(  #create! with a bang (!). Adding a ! instructs the method to raise an error if there's a problem with the data being seeded. Using create without a bang could fail silently, causing the error to surface later.
      title:  RandomData.random_sentence,
      body:   RandomData.random_paragraph,
-     topic: topics.sample
+     topic: topics.sample,
+     user: users.sample
    )
  end
 
@@ -32,11 +44,19 @@
  100.times do
    Comment.create!(
      post: posts.sample,
-     body: RandomData.random_paragraph
+     body: RandomData.random_paragraph,
+     # user: users.sample
    )
  end
+
+ user = User.first
+ user.update_attributes!(
+ 	email: 'aliciajace@gmail.com',
+ 	password: 'password'
+ )
  
  puts "Seed finished"
+ puts "#{User.count} users created"
  puts "#{Topic.count} topics created"
  puts "#{Post.count} posts created"
  puts "#{Comment.count} comments created"
