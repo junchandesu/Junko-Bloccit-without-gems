@@ -16,6 +16,8 @@ class Post < ActiveRecord::Base
 
 	default_scope{ order('created_at DESC')}
 	default_scope{ order('rank DESC')}
+	# a lambda (->) to ensure the condition(signed in or not) and Active Record joins method to retrieve all posts which belong to a public topic
+	scope :visible_to, -> (user) { user ? all : joins(:topic).where('topics.public' => true)}
 	scope :ordered_by_title, ->{ order 'title'}
 	scope :ordered_by_reverse_created_at, -> { order('created_at ASC')}
 

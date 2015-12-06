@@ -2,7 +2,8 @@ require 'rails_helper'
 include RandomData
 
 RSpec.describe Topic, type: :model do
-  let(:my_topic) {Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
+  # let(:my_topic) {Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph) }
+  let(:my_topic) { create(:topic)}
   # shoulda
   it { should have_many(:posts)}
   it { should have_many(:labelings)}

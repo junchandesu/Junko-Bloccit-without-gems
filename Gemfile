@@ -35,3 +35,5 @@
  gem 'bcrypt', '~> 3.1', '>= 3.1.10'
  # hide the sensitive info
  gem 'figaro', '1.0'
+ # build objects we can use for testing
+ gem 'factory_girl_rails', '~> 4.0'
