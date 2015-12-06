@@ -70,8 +70,15 @@ RSpec.describe Post, type: :model do
       post.votes.create!(value: -1)
       expect(post.rank).to eq(old_rank - 1)
       # Add the points (i.e. sum of the votes) to the age. This means that the passing of one day will be equivalent to one down vote
-
     end
    end
   end
+
+   describe "#create_vote is called after post is created" do 
+     it "create the vote one" do
+      expect(Vote.where(post_id: post.id).first.value).to eq(1)
+
+     end  
+    end
 end
+
