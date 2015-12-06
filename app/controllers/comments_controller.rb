@@ -4,10 +4,11 @@ class CommentsController < ApplicationController
 
 	def create
 		@post = Post.find(params[:post_id])
-		comment = @post.comments.new(comment_params)
-		comment.user = current_user
-		if comment.save
+		@comment = @post.comments.new(comment_params)
+		@comment.user = current_user
+		if @comment.save
 			flash[:notice] = "Comment was saved successfully."
+			FavoriteMailer.new_comment(User.first, @post, @comment).deliver_now
 			redirect_to [@post.topic, @post]
 		else
 			flash[:error] = "Comment failed to save."

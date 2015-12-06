@@ -33,3 +33,5 @@
  gem 'bootstrap-sass', '~> 3.3.5'
   # Used for encrypting User passwords
  gem 'bcrypt', '~> 3.1', '>= 3.1.10'
+ # hide the sensitive info
+ gem 'figaro', '1.0'
