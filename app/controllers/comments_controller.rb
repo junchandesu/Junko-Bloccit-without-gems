@@ -6,26 +6,36 @@ class CommentsController < ApplicationController
 		@post = Post.find(params[:post_id])
 		@comment = @post.comments.new(comment_params)
 		@comment.user = current_user
+		@new_comment = Comment.new
 		if @comment.save
 			flash[:notice] = "Comment was saved successfully."
-			FavoriteMailer.new_comment(User.first, @post, @comment).deliver_now
-			redirect_to [@post.topic, @post]
+			# redirect_to [@post.topic, @post]
 		else
 			flash[:error] = "Comment failed to save."
-			redirect_to [@post.topic, @post]
+			# redirect_to [@post.topic, @post]
+		end
+
+		respond_to do |format|
+			format.html
+			format.js
 		end
 
 	end
 
 	def destroy
 		@post = Post.find(params[:post_id])
-		comment = @post.comments.find(params[:id])
-		if comment.destroy
+		@comment = @post.comments.find(params[:id])
+		if @comment.destroy
 			flash[:notice] = "Comment was deleted"
-			redirect_to [@post.topic, @post]
+			# redirect_to [@post.topic, @post]
 		else
 			flash[:error] = "Comment could not be deleted. Please try again."
-			redirect_to [@post.topic, @post]
+			# redirect_to [@post.topic, @post]
+		end
+
+		respond_to do |format|
+			format.html
+			format.js
 		end
 	end
 

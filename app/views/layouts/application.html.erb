@@ -27,6 +27,7 @@
 
   </ul>
   <!-- ActionDispatch::Flash provides a data structure to pass temporary primitive types (String, Array, Hash) between controller actions.  -->
+  <div class="flash">
     <% if flash[:notice] %>
        <div class="alert alert-success">
          <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -43,6 +44,7 @@
          <%= flash[:alert] %>
        </div>
      <% end %>
+    </div>
 <%= yield %>
     </div>
 </body>
