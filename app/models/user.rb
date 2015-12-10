@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 	has_many :votes, dependent: :destroy
 	has_many :favorites, dependent: :destroy
 	# will run when the callback executes
+	before_create :generate_auth_token
 	before_save { self.email = email.downcase }
 	before_save {self.role ||= :member }
 	before_save :format_name
@@ -34,7 +35,10 @@ class User < ActiveRecord::Base
 	def avatar_url(size)
      gravatar_id = Digest::MD5::hexdigest(self.email).downcase
      "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
-   end
+    end
+
+    
+
 
 	private
 	def format_name
@@ -42,4 +46,11 @@ class User < ActiveRecord::Base
 		 self.name = name.split(" ").map(&:capitalize).join(" ")
     	end 
     end
+
+     def generate_auth_token
+       loop do
+         self.auth_token = SecureRandom.base64(64)
+         break unless User.find_by(auth_token: auth_token)
+       end
+     end
 end

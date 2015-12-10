@@ -3,7 +3,7 @@
    def random_name
     first_name = random_word.capitalize
     last_name = random_word.capitalize
-    " #{first_name} #{last_name}"
+    "#{first_name} #{last_name}"
    end
 
    def random_email
